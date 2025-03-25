@@ -1,14 +1,12 @@
+using Unity.VisualScripting;
 using UnityEngine;
 
 public class Driver : MonoBehaviour
 {
     [SerializeField] private float steerSpeed = 300f;
     [SerializeField] private float moveSpeed = 20f;
-
-    // Start is called once before the first execution of Update after the MonoBehaviour is created
-    void Start()
-    {
-    }
+    [SerializeField] float slowSpeed = 15f;
+    [SerializeField] float boostSpeed = 30f;
 
     // Update is called once per frame
     void Update()
@@ -18,5 +16,16 @@ public class Driver : MonoBehaviour
 
         transform.Rotate(0, 0, -steerAmount);
         transform.Translate(0, moveAmount, 0);
+    }
+
+    private void OnTriggerEnter2D(Collider2D other)
+    {
+        if (other.tag == "Boost")
+            moveSpeed = boostSpeed;
+    }
+
+    private void OnCollisionEnter2D(Collision2D other)
+    {
+        moveSpeed = slowSpeed;
     }
 }
