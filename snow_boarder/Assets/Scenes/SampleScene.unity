@@ -163,7 +163,7 @@ Rigidbody2D:
     m_Bits: 0
   m_Interpolate: 0
   m_SleepingMode: 1
-  m_CollisionDetection: 0
+  m_CollisionDetection: 1
   m_Constraints: 0
 --- !u!4 &173166790
 Transform:
@@ -1420,7 +1420,7 @@ SurfaceEffector2D:
   m_ColliderMask:
     serializedVersion: 2
     m_Bits: 4294967295
-  m_Speed: 1
+  m_Speed: 8
   m_SpeedVariation: 0
   m_ForceScale: 0.1
   m_UseContactForce: 0
