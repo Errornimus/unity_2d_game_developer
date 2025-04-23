@@ -13,3 +13,9 @@ MonoBehaviour:
   m_Name: Question 5
   m_EditorClassIdentifier: 
   question: A variable can be thought of as what?
+  <Answers>k__BackingField:
+  - Data that goes inside a box
+  - A box that can contain data
+  - Data that can't be changed
+  - Data that can only be used once
+  <CorrectAnswerIndex>k__BackingField: 1

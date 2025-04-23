@@ -14,3 +14,10 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   question: What is the correct syntax for creating a new integer variable with an
     inital value of 12?
+  <Answers>k__BackingField:
+  - int num = 12;
+  - Int num = "12";
+  - Int num = 12;
+  - int num = "12";
+  <CorrectAnswerIndex>k__BackingField: 0
+  <Health>k__BackingField: 0
