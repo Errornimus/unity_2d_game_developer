@@ -14,7 +14,7 @@ public class Quiz : MonoBehaviour
 
     [Header("Answers")]
     [SerializeField] GameObject[] answerButtons;
-    bool hasAnsweredEarly;
+    bool hasAnsweredEarly = true;
 
     [Header("ButtonSprites")]
     [SerializeField] Sprite defaultAnswerSprite;
@@ -22,15 +22,38 @@ public class Quiz : MonoBehaviour
 
     Timer timer;
 
-    void Start()
+    [Header("Scoring")]
+    [SerializeField] TextMeshProUGUI scoreText;
+    ScoreKeeper scoreKeeper;
+
+    [Header("ProgressBar")]
+    [SerializeField] Slider progressBar;
+
+    public bool isComplete { get; private set; } = false;
+
+    void Awake()
     {
         timer = FindFirstObjectByType<Timer>();
+        scoreKeeper = FindFirstObjectByType<ScoreKeeper>();
+    }
+
+    void Start()
+    {
+        scoreText.text = "";
+        progressBar.maxValue = questions.Count;
+        progressBar.value = 0;
     }
 
     void Update()
     {
         if (timer.loadNextQuestion)
         {
+            if (progressBar.value == progressBar.maxValue)
+            {
+                isComplete = true;
+                return;
+            }
+
             hasAnsweredEarly = false;
             GetNextQuestion();
             timer.loadNextQuestion = false;
@@ -57,8 +80,8 @@ public class Quiz : MonoBehaviour
         hasAnsweredEarly = true;
         setAnswerButtonsInteractableTo(false);
         DisplayAnswer(index);
-
         timer.cancelTimer();
+        scoreText.text = "Score: " + scoreKeeper.calculateScore().ToString() + "%";
     }
 
     private void DisplayAnswer(int index)
@@ -68,6 +91,7 @@ public class Quiz : MonoBehaviour
             questionText.text = "Correct Answer!";
             Image buttonImage = answerButtons[index].GetComponent<Image>();
             buttonImage.sprite = correctAnswerSprite;
+            scoreKeeper.increaseCorrectAnswers();
         }
         else
         {
@@ -85,6 +109,8 @@ public class Quiz : MonoBehaviour
             GetRandomQuestion();
             DisplayQuestionAndAnswers();
             setAnswerButtonsInteractableTo(true);
+            progressBar.value++;
+            scoreKeeper.increaseQuestionsSeen();
         }
     }
 
