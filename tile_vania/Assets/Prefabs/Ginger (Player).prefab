@@ -97,7 +97,7 @@ SpriteRenderer:
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: 1571334539
-  m_SortingLayer: 4
+  m_SortingLayer: 5
   m_SortingOrder: 0
   m_Sprite: {fileID: 1857188551261513057, guid: 7a2cc9bbc41ebf9329aa8ddb5dda4f4e, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
@@ -122,7 +122,7 @@ GameObject:
   - component: {fileID: 6911804584093617723}
   - component: {fileID: 3396605988951934294}
   - component: {fileID: 5843576800571866519}
-  - component: {fileID: 6570307771361425557}
+  - component: {fileID: 7282656135084019552}
   m_Layer: 0
   m_Name: Ginger (Player)
   m_TagString: Untagged
@@ -161,7 +161,7 @@ Rigidbody2D:
   m_Mass: 1
   m_LinearDamping: 0
   m_AngularDamping: 0.05
-  m_GravityScale: 1
+  m_GravityScale: 8
   m_Material: {fileID: 0}
   m_IncludeLayers:
     serializedVersion: 2
@@ -171,7 +171,7 @@ Rigidbody2D:
     m_Bits: 0
   m_Interpolate: 0
   m_SleepingMode: 1
-  m_CollisionDetection: 0
+  m_CollisionDetection: 1
   m_Constraints: 4
 --- !u!70 &3396605988951934294
 CapsuleCollider2D:
@@ -240,7 +240,7 @@ MonoBehaviour:
   m_DefaultActionMap: Player
   m_SplitScreenIndex: -1
   m_Camera: {fileID: 0}
---- !u!114 &6570307771361425557
+--- !u!114 &7282656135084019552
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -252,4 +252,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d2c8a9ab72f67760bb2c8ddde3c90cb1, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  <runSpeed>k__BackingField: 7
+  <_runSpeed>k__BackingField: 7
+  <_jumpSpeed>k__BackingField: 25
+  <_climbingSpeed>k__BackingField: 5
