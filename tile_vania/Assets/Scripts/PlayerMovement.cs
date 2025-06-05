@@ -5,25 +5,42 @@ using UnityEngine.InputSystem;
 
 public class PlayerMovement : MonoBehaviour
 {
-    [Header("Movement")]
-    Vector2 moveInput { get; set; }
-    Rigidbody2D rigidBody;
+    [field: Header("Movement")]
     [field: SerializeField] float runSpeed { get; set; } = 3.0f;
+    Vector2 moveInput { get; set; }
+    Rigidbody2D playerRigidBody;
 
-    void Start()
+    void Awake()
     {
-        rigidBody = GetComponentInChildren<Rigidbody2D>();
+        playerRigidBody = GetComponent<Rigidbody2D>();
+    }
+
+    private void Start()
+    {
+
     }
 
     void Update()
     {
-        Run();
+        MovePlayer();
     }
 
-    void Run()
+    void MovePlayer()
     {
-        Vector2 playerVelocity = new Vector2(moveInput.x * runSpeed, rigidBody.linearVelocityY);
-        rigidBody.linearVelocity = playerVelocity;
+        Vector2 playerVelocity = new Vector2(moveInput.x * runSpeed, playerRigidBody.linearVelocityY);
+        playerRigidBody.linearVelocity = playerVelocity;
+
+        FlipSpriteAccordingToMovementDirection();
+    }
+
+    void FlipSpriteAccordingToMovementDirection()
+    {
+        // alternative way
+        // bool playerHasHorizontalSpeed = playerRigidBody.linearVelocityX != 0;
+        bool playerHasHorizontalSpeed = Mathf.Abs(playerRigidBody.linearVelocityX) > Mathf.Epsilon;
+
+        if (playerHasHorizontalSpeed)
+            transform.localScale = new Vector2(Mathf.Sign(playerRigidBody.linearVelocityX), 1.0f);
     }
 
     void OnMove(InputValue value)
