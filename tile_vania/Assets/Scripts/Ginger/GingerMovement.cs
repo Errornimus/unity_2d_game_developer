@@ -13,6 +13,7 @@ public class GingerMovement : MonoBehaviour
     Vector2 _moveInput { get; set; }
     Rigidbody2D _rigidBody;
     CapsuleCollider2D _capsuleCollider;
+    float _startingGravityScale;
 
     Animator _playerAnimator;
 
@@ -21,6 +22,7 @@ public class GingerMovement : MonoBehaviour
         _rigidBody = GetComponent<Rigidbody2D>();
         _playerAnimator = GetComponentInChildren<Animator>();
         _capsuleCollider = GetComponent<CapsuleCollider2D>();
+        _startingGravityScale = _rigidBody.gravityScale;
     }
 
     void Start()
@@ -42,9 +44,16 @@ public class GingerMovement : MonoBehaviour
             // _rigidBody.linearVelocityY = _moveInput.y * _climbingSpeed;
             Vector2 climbingVelocity = new Vector2(_rigidBody.linearVelocityX, _moveInput.y * _climbingSpeed);
             _rigidBody.linearVelocity = climbingVelocity;
+
+            _rigidBody.gravityScale = 0;
+            _playerAnimator.SetBool(GingerParams.isClimbing, HasVerticalSpeed());
+        }
+        else
+        {
+            _rigidBody.gravityScale = _startingGravityScale;
+            _playerAnimator.SetBool(GingerParams.isClimbing, false);
         }
 
-        _playerAnimator.SetBool(GingerParams.isClimbing, HasVerticalSpeed() && IsClimbingAllowed());
     }
 
     bool HasVerticalSpeed()
