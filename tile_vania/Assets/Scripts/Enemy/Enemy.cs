@@ -4,6 +4,7 @@ using UnityEngine;
 public class Enemy : MonoBehaviour
 {
     [field: SerializeField] float _moveSpeed = 1.0f;
+
     Rigidbody2D _rigidBody;
     Transform _transform;
 
@@ -26,8 +27,11 @@ public class Enemy : MonoBehaviour
 
     void OnTriggerExit2D(Collider2D collision)
     {
-        _moveSpeed = -_moveSpeed;
-        FlipSprite();
+        if (collision.gameObject.layer.Equals(LayerConstants.Ground))
+        {
+            _moveSpeed = -_moveSpeed;
+            FlipSprite();
+        }
     }
 
     private void FlipSprite()

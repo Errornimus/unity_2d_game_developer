@@ -21,4 +21,8 @@ public static class LayerConstants
     public static readonly int BackgroundMask = 1 << 9;
     public const int Bouncing = 10;
     public static readonly int BouncingMask = 1 << 10;
+    public const int Enemy = 11;
+    public static readonly int EnemyMask = 1 << 11;
+    public const int Hazard = 12;
+    public static readonly int HazardMask = 1 << 12;
 }

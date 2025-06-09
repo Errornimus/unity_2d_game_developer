@@ -1,4 +1,5 @@
 using System;
+using System.Runtime.InteropServices.WindowsRuntime;
 using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.InputSystem;
@@ -10,7 +11,10 @@ public class GingerMovement : MonoBehaviour
     [field: SerializeField] float _jumpSpeed { get; set; } = 5.0f;
     [field: SerializeField] float _climbingSpeed { get; set; } = 5.0f;
 
+    [field: SerializeField] Vector2 _deathAnimation = new Vector2(0f, 10f);
+
     Vector2 _moveInput { get; set; }
+
     Rigidbody2D _rigidBody;
     CapsuleCollider2D _bodyCollider;
     BoxCollider2D _feetCollider;
@@ -18,13 +22,17 @@ public class GingerMovement : MonoBehaviour
 
     Animator _playerAnimator;
 
+    bool _isAlive { get; set; }
+
     void Awake()
     {
         _rigidBody = GetComponent<Rigidbody2D>();
         _playerAnimator = GetComponentInChildren<Animator>();
-        _bodyCollider = GetComponent<CapsuleCollider2D>();
+        // _bodyCollider = GetComponent<CapsuleCollider2D>();
         _feetCollider = GetComponent<BoxCollider2D>();
         _startingGravityScale = _rigidBody.gravityScale;
+
+        _isAlive = true;
     }
 
     void Start()
@@ -34,8 +42,22 @@ public class GingerMovement : MonoBehaviour
 
     void Update()
     {
+        if (!_isAlive)
+            return;
+
         Run();
         ClimbLadder();
+        Die();
+    }
+
+    void Die()
+    {
+        if (_rigidBody.IsTouchingLayers(LayerConstants.EnemyMask) || _rigidBody.IsTouchingLayers(LayerConstants.HazardMask))
+        {
+            _isAlive = false;
+            _playerAnimator.SetTrigger(GingerParams.Dying);
+            _rigidBody.linearVelocity = _deathAnimation;
+        }
     }
 
     void ClimbLadder()
@@ -73,9 +95,13 @@ public class GingerMovement : MonoBehaviour
         Vector2 playerVelocity = new Vector2(_moveInput.x * _runSpeed, _rigidBody.linearVelocityY);
         _rigidBody.linearVelocity = playerVelocity;
 
-        FlipSprite();
-
-        _playerAnimator.SetBool(GingerParams.isRunning, HasHorizontalSpeed());
+        if (HasHorizontalSpeed())
+        {
+            FlipSprite();
+            _playerAnimator.SetBool(GingerParams.isRunning, true);
+        }
+        else
+            _playerAnimator.SetBool(GingerParams.isRunning, false);
     }
 
     void FlipSprite()
@@ -104,6 +130,6 @@ public class GingerMovement : MonoBehaviour
 
     bool IsJumpingAllowed()
     {
-        return _feetCollider.IsTouchingLayers(LayerConstants.GroundMask);
+        return _feetCollider.IsTouchingLayers(LayerConstants.GroundMask) && _isAlive;
     }
 }
