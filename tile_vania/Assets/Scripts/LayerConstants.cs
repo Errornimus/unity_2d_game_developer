@@ -15,4 +15,10 @@ public static class LayerConstants
     public static readonly int GroundMask = 1 << 6;
     public const int Ladder = 7;
     public static readonly int LadderMask = 1 << 7;
+    public const int Player = 8;
+    public static readonly int PlayerMask = 1 << 8;
+    public const int Background = 9;
+    public static readonly int BackgroundMask = 1 << 9;
+    public const int Bouncing = 10;
+    public static readonly int BouncingMask = 1 << 10;
 }

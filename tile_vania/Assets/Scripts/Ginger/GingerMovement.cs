@@ -12,7 +12,8 @@ public class GingerMovement : MonoBehaviour
 
     Vector2 _moveInput { get; set; }
     Rigidbody2D _rigidBody;
-    CapsuleCollider2D _capsuleCollider;
+    CapsuleCollider2D _bodyCollider;
+    BoxCollider2D _feetCollider;
     float _startingGravityScale;
 
     Animator _playerAnimator;
@@ -21,7 +22,8 @@ public class GingerMovement : MonoBehaviour
     {
         _rigidBody = GetComponent<Rigidbody2D>();
         _playerAnimator = GetComponentInChildren<Animator>();
-        _capsuleCollider = GetComponent<CapsuleCollider2D>();
+        _bodyCollider = GetComponent<CapsuleCollider2D>();
+        _feetCollider = GetComponent<BoxCollider2D>();
         _startingGravityScale = _rigidBody.gravityScale;
     }
 
@@ -63,7 +65,7 @@ public class GingerMovement : MonoBehaviour
 
     bool IsClimbingAllowed()
     {
-        return _capsuleCollider.IsTouchingLayers(LayerConstants.LadderMask);
+        return _feetCollider.IsTouchingLayers(LayerConstants.LadderMask);
     }
 
     void Run()
@@ -102,6 +104,6 @@ public class GingerMovement : MonoBehaviour
 
     bool IsJumpingAllowed()
     {
-        return _capsuleCollider.IsTouchingLayers(LayerConstants.GroundMask);
+        return _feetCollider.IsTouchingLayers(LayerConstants.GroundMask);
     }
 }
