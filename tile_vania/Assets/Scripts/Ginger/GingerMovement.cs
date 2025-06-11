@@ -11,6 +11,9 @@ public class GingerMovement : MonoBehaviour
     [field: SerializeField] float _jumpSpeed { get; set; } = 5.0f;
     [field: SerializeField] float _climbingSpeed { get; set; } = 5.0f;
 
+    [field: Header("Combat")]
+    [field: SerializeField] GameObject _arrowPrefab { get; set; }
+    [field: SerializeField] Transform _arrowSpawnPoint { get; set; }
     [field: SerializeField] Vector2 _deathAnimation = new Vector2(0f, 10f);
 
     Vector2 _moveInput { get; set; }
@@ -33,11 +36,6 @@ public class GingerMovement : MonoBehaviour
         _startingGravityScale = _rigidBody.gravityScale;
 
         _isAlive = true;
-    }
-
-    void Start()
-    {
-
     }
 
     void Update()
@@ -131,5 +129,13 @@ public class GingerMovement : MonoBehaviour
     bool IsJumpingAllowed()
     {
         return _feetCollider.IsTouchingLayers(LayerConstants.GroundMask) && _isAlive;
+    }
+
+    void OnAttack(InputValue value)
+    {
+        if (!_isAlive) return;
+
+        GameObject arrow = Instantiate(_arrowPrefab, _arrowSpawnPoint.position, Quaternion.Euler(0, 0, -42));
+
     }
 }
