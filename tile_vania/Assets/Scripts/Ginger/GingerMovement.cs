@@ -6,6 +6,10 @@ using UnityEngine.InputSystem;
 
 public class GingerMovement : MonoBehaviour
 {
+    /*
+     * Try Converting to PlayerState-Mechanism and checking Movement again or Enum-Switch-Construct
+     * afterwards try InputComponent
+    */
     [field: Header("Movement")]
     [field: SerializeField] float _runSpeed { get; set; } = 7.0f;
     [field: SerializeField] float _jumpSpeed { get; set; } = 5.0f;
@@ -19,7 +23,7 @@ public class GingerMovement : MonoBehaviour
     Vector2 _moveInput { get; set; }
 
     Rigidbody2D _rigidBody;
-    CapsuleCollider2D _bodyCollider;
+    // CapsuleCollider2D _bodyCollider;
     BoxCollider2D _feetCollider;
     float _startingGravityScale;
 
