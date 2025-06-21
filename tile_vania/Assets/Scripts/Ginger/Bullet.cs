@@ -1,3 +1,4 @@
+using Unity.VisualScripting;
 using UnityEngine;
 
 public class Bullet : MonoBehaviour
@@ -31,14 +32,17 @@ public class Bullet : MonoBehaviour
 
     void OnTriggerEnter2D(Collider2D collision)
     {
-        if (collision.tag.Equals(TagEnum.Enemy))
-            Destroy(collision.gameObject);
+        // if (collision.tag.Equals(TagEnum.Enemy))
+        //     Destroy(collision.gameObject);
 
-        Destroy(gameObject);
+        // Destroy(gameObject);
     }
 
     void OnCollisionEnter2D(Collision2D collision)
     {
+        if (collision.gameObject.tag.Equals(TagEnum.Enemy))
+            Destroy(collision.gameObject);
+
         Destroy(gameObject);
     }
 }
