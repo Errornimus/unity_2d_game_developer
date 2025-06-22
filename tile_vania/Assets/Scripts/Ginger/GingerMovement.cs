@@ -59,6 +59,9 @@ public class GingerMovement : MonoBehaviour
             _isAlive = false;
             _playerAnimator.SetTrigger(GingerParams.Dying);
             _rigidBody.linearVelocity = _deathAnimation;
+
+            GameSession _gameSession = FindAnyObjectByType<GameSession>();
+            _gameSession.ProcessPlayerDeath();
         }
     }
 
