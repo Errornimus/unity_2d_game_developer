@@ -160,3 +160,4 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 03e015b11188ec480805070cf47ad0ef, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  <PickUpSound>k__BackingField: {fileID: 8300000, guid: 18bdbe1d6d2fb41cc82d13a67d876fdc, type: 3}

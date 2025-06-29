@@ -124,7 +124,6 @@ public class GingerMovement : MonoBehaviour
     void OnMove(InputValue value)
     {
         _moveInput = value.Get<Vector2>();
-        Debug.Log(_moveInput);
     }
 
     void OnJump(InputValue value)
