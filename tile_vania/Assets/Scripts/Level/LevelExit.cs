@@ -6,6 +6,13 @@ public class ExitLevel : MonoBehaviour
 {
     [field: SerializeField] float _levelLoadDelay { get; set; } = 1.0f;
 
+    ScenePersist _scenePersist;
+
+    void Start()
+    {
+        _scenePersist = FindAnyObjectByType<ScenePersist>();
+    }
+
     IEnumerator LoadNextLevel()
     {
         yield return new WaitForSecondsRealtime(_levelLoadDelay);
@@ -16,6 +23,7 @@ public class ExitLevel : MonoBehaviour
         if (nextSceneIndex == SceneManager.sceneCountInBuildSettings)
             nextSceneIndex = 0;
 
+        _scenePersist.ResetScenePersist();
         SceneManager.LoadScene(nextSceneIndex);
     }
 
