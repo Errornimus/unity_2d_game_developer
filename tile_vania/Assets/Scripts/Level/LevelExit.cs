@@ -7,6 +7,7 @@ public class ExitLevel : MonoBehaviour
     [field: SerializeField] float _levelLoadDelay { get; set; } = 1.0f;
 
     ScenePersist _scenePersist;
+    bool _levelAlreadyLoaded = false;
 
     void Start()
     {
@@ -29,8 +30,9 @@ public class ExitLevel : MonoBehaviour
 
     void OnTriggerEnter2D(Collider2D collision)
     {
-        if (collision.tag.Equals(TagEnum.Player))
+        if (collision.tag.Equals(TagEnum.Player) && !_levelAlreadyLoaded)
         {
+            _levelAlreadyLoaded = true;
             StartCoroutine(LoadNextLevel());
         }
     }

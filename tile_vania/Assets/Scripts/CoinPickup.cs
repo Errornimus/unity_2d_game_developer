@@ -18,7 +18,6 @@ public class CoinPickup : MonoBehaviour
         if (collision.tag.Equals(TagEnum.Player) && !_wasAlreadyCollected)
         {
             AudioSource.PlayClipAtPoint(PickUpSound, Camera.main.transform.position);
-            Debug.Log($"Adding {PointsForCoin} to Player's Score");
             _gameSession.AddPointsToPlayersScore(PointsForCoin);
             _wasAlreadyCollected = true;
             Destroy(this.gameObject);
