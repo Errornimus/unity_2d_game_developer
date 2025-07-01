@@ -11,14 +11,25 @@ public class GameSession : MonoBehaviour
     [field: SerializeField] TextMeshProUGUI LivesText { get; set; }
     [field: SerializeField] TextMeshProUGUI ScoresText { get; set; }
 
+    public static GameSession Instance { get; private set; }
+
     void Awake()
     {
-        int numGameSessions = FindObjectsByType<GameSession>(FindObjectsSortMode.None).Length;
+        // int numGameSessions = FindObjectsByType<GameSession>(FindObjectsSortMode.None).Length;
 
-        if (numGameSessions > 1)
+        // if (numGameSessions > 1)
+        //     DestroyImmediate(gameObject);
+        // else
+        //     DontDestroyOnLoad(gameObject);
+
+        if (Instance != null && Instance != this)
+        {
             DestroyImmediate(gameObject);
-        else
-            DontDestroyOnLoad(gameObject);
+            return;
+        }
+
+        Instance = this;
+        DontDestroyOnLoad(gameObject);
     }
 
     void Start()
@@ -55,6 +66,7 @@ public class GameSession : MonoBehaviour
         _scenePersist.ResetScenePersist();
 
         SceneManager.LoadScene(0);
+        // dies zerstört auch die Singleton-Instance
         Destroy(gameObject);
     }
 
