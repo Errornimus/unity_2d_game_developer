@@ -76,7 +76,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4e32ebf8bed0e9809ac5fb0c6b4d7c39, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  <MovementSpeed>k__BackingField: 6.5
+  MovementSpeed: 6.5
+  _paddingLeft: 0.5
+  _paddingRight: 0.5
+  _paddingTop: 5
+  _paddingBottom: 2
 --- !u!1 &2773160055220101381
 GameObject:
   m_ObjectHideFlags: 0
