@@ -17,7 +17,7 @@ public class NewMonoBehaviourScript : MonoBehaviour
     Vector2 _maxViewportBoundary;
 
     // Input System
-    private Vector2 _rawInput;
+    Vector2 _rawInput;
 
     /* 
         Unity 
@@ -59,6 +59,5 @@ public class NewMonoBehaviourScript : MonoBehaviour
     private void OnMove(InputValue value)
     {
         _rawInput = value.Get<Vector2>();
-        Debug.Log(_rawInput);
     }
 }
